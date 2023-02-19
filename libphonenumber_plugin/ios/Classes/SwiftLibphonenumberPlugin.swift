@@ -77,7 +77,7 @@ public class SwiftLibphonenumberPlugin: NSObject, FlutterPlugin {
             let p: PhoneNumber = try phoneNumberKit.parse(phoneNumber, withRegion: isoCode.uppercased(), ignoreType: true)
             
             let regionCode: String? = phoneNumberKit.getRegionCode(of: p)
-            let countryCode: String?
+            let countryCode = "+" + String(p.countryCode)
             
             if let prefix = phoneNumberKit.countryCode(for: regionCode ?? "") {
                 countryCode = String(prefix)
@@ -102,7 +102,7 @@ public class SwiftLibphonenumberPlugin: NSObject, FlutterPlugin {
         let isoCode = arguments["isoCode"] as! String
         
         do {
-            let p: PhoneNumber = try phoneNumberKit.parse(phoneNumber, withRegion: isoCode.uppercased(), ignoreType: false)
+            let p: PhoneNumber = try phoneNumberKit.parse(phoneNumber)
             
             let t: PhoneNumberType = p.type
             
